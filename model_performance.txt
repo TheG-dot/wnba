@@ -1,0 +1,32 @@
+WNBA Point Spread Predictor - Model Performance
+===============================================
+Validation Strategy: TimeSeriesSplit (Walk-Forward Validation)
+Number of Folds: 5
+Best Hyperparameters: {'learning_rate': 0.01, 'max_depth': 3, 'n_estimators': 200}
+Average RMSE: 12.7163
+Average MAE:  10.2386
+
+Feature Importances:
+home_net_rtg_roll10: 0.1231
+away_net_rtg_roll10: 0.1230
+away_net_rtg_roll5: 0.0873
+home_def_rtg_roll10: 0.0511
+away_off_rtg_roll5: 0.0475
+away_off_rtg_roll10: 0.0439
+away_def_rtg_roll5: 0.0402
+away_days_rest: 0.0371
+home_net_rtg_roll5: 0.0354
+away_def_rtg_roll10: 0.0348
+home_trb_pct_roll10: 0.0345
+away_pace_roll5: 0.0342
+home_off_rtg_roll5: 0.0342
+home_days_rest: 0.0324
+home_trb_pct_roll5: 0.0319
+away_trb_pct_roll10: 0.0310
+away_trb_pct_roll5: 0.0301
+home_off_rtg_roll10: 0.0293
+home_def_rtg_roll5: 0.0281
+rest_advantage: 0.0266
+home_pace_roll5: 0.0253
+away_pace_roll10: 0.0198
+home_pace_roll10: 0.0191
