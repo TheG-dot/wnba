@@ -1,0 +1,73 @@
+{
+    "games": [
+        {
+            "matchup": "MERCURY @ DREAM",
+            "predicted_winner": "DREAM",
+            "margin": 2.5
+        },
+        {
+            "matchup": "STORM @ LIBERTY",
+            "predicted_winner": "LIBERTY",
+            "margin": 5.1
+        },
+        {
+            "matchup": "WINGS @ MYSTICS",
+            "predicted_winner": "MYSTICS",
+            "margin": 7.8
+        },
+        {
+            "matchup": "SPARKS @ SKY",
+            "predicted_winner": "SKY",
+            "margin": 3.4
+        },
+        {
+            "matchup": "FEVER @ ACES",
+            "predicted_winner": "ACES",
+            "margin": 5.2
+        }
+    ],
+    "best_bets": [
+        {
+            "player": "Breanna Stewart",
+            "prop_type": "Points",
+            "line": 22.5,
+            "projection": 17.9,
+            "recommendation": "UNDER"
+        },
+        {
+            "player": "Breanna Stewart",
+            "prop_type": "Shots Made (FGM)",
+            "line": 7.5,
+            "projection": 6.1,
+            "recommendation": "UNDER"
+        },
+        {
+            "player": "Caitlin Clark",
+            "prop_type": "Points",
+            "line": 20.5,
+            "projection": 15.6,
+            "recommendation": "UNDER"
+        },
+        {
+            "player": "Caitlin Clark",
+            "prop_type": "Shots Made (FGM)",
+            "line": 7.5,
+            "projection": 5.2,
+            "recommendation": "UNDER"
+        },
+        {
+            "player": "A'ja Wilson",
+            "prop_type": "Points",
+            "line": 22.5,
+            "projection": 19.7,
+            "recommendation": "UNDER"
+        },
+        {
+            "player": "A'ja Wilson",
+            "prop_type": "Shots Made (FGM)",
+            "line": 7.5,
+            "projection": 7.0,
+            "recommendation": "UNDER"
+        }
+    ]
+}

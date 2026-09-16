@@ -1,30 +1,35 @@
-import os
 import pandas as pd
-import sportsdataverse.wnba as wnba
+import requests
+from io import BytesIO
 
 def fetch_and_clean_wnba_data(start_season=2020, end_season=2024):
     print(f"Fetching WNBA team box score data from {start_season} to {end_season}...")
     
-    # sportsdataverse allows loading multiple seasons. We pass a list of seasons.
     seasons = list(range(start_season, end_season + 1))
+    frames = []
     
-    # Load data (returns a polars DataFrame)
-    pl_df = wnba.load_wnba_team_boxscore(seasons=seasons)
-    
-    # Convert to pandas DataFrame for our pipeline
-    df = pl_df.to_pandas()
+    for season in seasons:
+        url = f"https://github.com/sportsdataverse/sportsdataverse-data/releases/download/espn_wnba_team_boxscores/team_box_{season}.parquet"
+        print(f"Downloading {url} ...")
+        try:
+            # We use requests to get the parquet data bytes, then read with pandas
+            response = requests.get(url)
+            response.raise_for_status()
+            df_season = pd.read_parquet(BytesIO(response.content))
+            frames.append(df_season)
+        except Exception as e:
+            print(f"Failed to fetch season {season}: {e}")
+            
+    if not frames:
+        print("No data fetched.")
+        return pd.DataFrame()
+        
+    df = pd.concat(frames, ignore_index=True)
     print(f"Loaded {len(df)} rows. Columns: {df.columns.tolist()[:10]}...")
 
-    # For WNBA data from espn, relevant columns usually include:
-    # 'game_date', 'team_name', 'team_id', 'team_score', 'opponent_team_name', etc.
-    # We will inspect the actual columns in the first run and adapt feature engineering.
-    
-    # We need a strict date column
     date_col = 'game_date' if 'game_date' in df.columns else 'date' if 'date' in df.columns else 'game_date'
     
-    # If the exact column isn't found, let's print all columns and raise an error so we can fix it.
     if date_col not in df.columns:
-        # Check if 'game_date_time' or something exists
         for col in df.columns:
             if 'date' in col.lower():
                 date_col = col
@@ -32,16 +37,13 @@ def fetch_and_clean_wnba_data(start_season=2020, end_season=2024):
                 
     print(f"Using '{date_col}' for sorting chronologically.")
     
-    # Standardize Team Names (just ensuring it's uppercase and stripped)
     team_col = 'team_name' if 'team_name' in df.columns else 'team_display_name' if 'team_display_name' in df.columns else 'team'
     if team_col in df.columns:
         df[team_col] = df[team_col].astype(str).str.strip().str.upper()
     
-    # Sort data strictly by game_date in ascending chronological order
     df[date_col] = pd.to_datetime(df[date_col])
     df = df.sort_values(by=[date_col])
     
-    # Output to CSV
     output_path = 'raw_wnba_data.csv'
     df.to_csv(output_path, index=False)
     print(f"Data ingestion complete. Saved {len(df)} rows to {output_path}.")

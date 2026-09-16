@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WNBA Spread Predictor</title>
+    <!-- Modern Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob orange"></div>
+        <div class="blob purple"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>WNBA Spread Predictor</h1>
+            <p>Advanced Analytics & Machine Learning Pipeline</p>
+        </header>
+
+        <main>
+            <section class="glass-card full-width live-section">
+                <h2>Tomorrow's Slate & Best Bets <span class="live-pulse"></span></h2>
+                
+                <div class="live-grid">
+                    <div class="live-column">
+                        <h3>Matchups</h3>
+                        <div id="live-games-container" class="scroll-container">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                    
+                    <div class="live-column">
+                        <h3>Player Props</h3>
+                        <div id="live-props-container" class="scroll-container">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-card predictor-section">
+                <h2>Matchup Predictor</h2>
+                <div class="form-group">
+                    <div class="select-wrapper">
+                        <label for="home-team">Home Team</label>
+                        <select id="home-team">
+                            <option value="">Select Home Team...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="vs-badge">VS</div>
+                    
+                    <div class="select-wrapper">
+                        <label for="away-team">Away Team</label>
+                        <select id="away-team">
+                            <option value="">Select Away Team...</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button id="predict-btn" class="glow-btn">Predict Spread</button>
+                
+                <div id="prediction-result" class="result-card hidden">
+                    <h3 id="winner-text"></h3>
+                    <div class="margin-badge">
+                        By <span id="margin-value"></span> Points
+                    </div>
+                    <p id="rest-info"></p>
+                </div>
+            </section>
+
+            <section class="glass-card stats-section">
+                <h2>Model Insights & Validation</h2>
+                <div class="metrics">
+                    <div class="metric-box">
+                        <h4>Walk-Forward RMSE</h4>
+                        <p id="rmse-val">--</p>
+                    </div>
+                    <div class="metric-box">
+                        <h4>Walk-Forward MAE</h4>
+                        <p id="mae-val">--</p>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="importanceChart"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
